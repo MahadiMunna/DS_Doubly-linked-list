@@ -46,22 +46,29 @@ void print_reverse(Node* &tail){
         tmp=tmp->prev;
     }
 }
-void delete_tail(Node* &tail){
+void delete_tail(Node* &head,Node* &tail){
     Node* tmp = tail;
     tail=tail->prev;
-    tail->next=NULL;
     delete tmp;
+    if(tail==NULL){
+        head==NULL;
+    }
+    tail->next=NULL;
 }
 void delete_node(Node* &head,Node* &tail,int p){
     Node* tmp=head;
     if(p==0){
-        tmp->next->prev=NULL;
         head=tmp->next;
         delete tmp;
+        if(head==NULL){
+            tail=NULL;
+            return;
+        }
+        head->prev=NULL;
         return;
     }
     else if(p==size(head)-1){
-        delete_tail(tail);
+        delete_tail(head,tail);
         return;
     }
     else if(p<size(head)-1){
